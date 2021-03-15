@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar'
-
 import moment from 'moment';
-import 'moment/locale/es';
+
 import 'react-big-calendar/lib/css/react-big-calendar.css';
+import 'moment/locale/es';
 
 import { Navbar } from '../ui/Navbar';
 import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
+import { CalendarModal } from './CalendarModal';
 
 
 // Setup the localizer by providing the moment (or globalize) Object
@@ -82,6 +83,7 @@ export const CalendarScreen = () => {
                     event: CalendarEvent
                 }}
             />
+            <CalendarModal />
         </div>
     )
 }
