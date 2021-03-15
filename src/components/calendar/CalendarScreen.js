@@ -11,6 +11,8 @@ import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
+import { eventSetActive } from '../../actions/event';
+import { AddNewFab } from '../ui/AddNewFab';
 
 
 // Setup the localizer by providing the moment (or globalize) Object
@@ -44,7 +46,9 @@ export const CalendarScreen = () => {
 
     const onSelectEvent = (e) => {
 
-        console.log(e)
+        // console.log(e)
+        dispatch(eventSetActive(e));
+        dispatch(uiOpenModal());
 
     }
 
@@ -69,29 +73,31 @@ export const CalendarScreen = () => {
 
     }
 
-    return ( <
-        div className = "calendar-screen" >
-        <
-        Navbar / >
-        <
-        Calendar localizer = { localizer }
-        events = { events }
-        startAccessor = "start"
-        endAccessor = "end"
-        messages = { messages }
-        eventPropGetter = { eventStyleGetter }
-        onDoubleClickEvent = { onDoubleClick }
-        onSelectEvent = { onSelectEvent }
-        onView = { onViewChange }
-        view = { lastView }
-        components = {
-            {
-                event: CalendarEvent
-            }
-        }
-        /> <
-        CalendarModal / >
-        <
-        /div>
+    return (
+        <div
+            className="calendar-screen"
+        >
+            <Navbar />
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                messages={messages}
+                eventPropGetter={eventStyleGetter}
+                onDoubleClickEvent={onDoubleClick}
+                onSelectEvent={onSelectEvent}
+                onView={onViewChange}
+                view={lastView}
+                components={
+                    {
+                        event: CalendarEvent
+                    }
+                }
+            />
+            <AddNewFab />
+            <CalendarModal />
+
+        </div>
     )
 }
