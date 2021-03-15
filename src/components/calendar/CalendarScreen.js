@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';
 
@@ -9,6 +10,7 @@ import { Navbar } from '../ui/Navbar';
 import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
+import { uiOpenModal } from '../../actions/ui';
 
 
 // Setup the localizer by providing the moment (or globalize) Object
@@ -30,12 +32,14 @@ const events = [{
 
 export const CalendarScreen = () => {
 
+    const dispatch = useDispatch();
+
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
 
     const onDoubleClick = (e) => {
 
-        console.log(e)
-
+        // console.log(e)
+        dispatch(uiOpenModal());
     }
 
     const onSelectEvent = (e) => {
@@ -65,25 +69,29 @@ export const CalendarScreen = () => {
 
     }
 
-    return (
-        <div className="calendar-screen">
-            <Navbar />
-            <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                messages={messages}
-                eventPropGetter={eventStyleGetter}
-                onDoubleClickEvent={onDoubleClick}
-                onSelectEvent={onSelectEvent}
-                onView={onViewChange}
-                view={lastView}
-                components={{
-                    event: CalendarEvent
-                }}
-            />
-            <CalendarModal />
-        </div>
+    return ( <
+        div className = "calendar-screen" >
+        <
+        Navbar / >
+        <
+        Calendar localizer = { localizer }
+        events = { events }
+        startAccessor = "start"
+        endAccessor = "end"
+        messages = { messages }
+        eventPropGetter = { eventStyleGetter }
+        onDoubleClickEvent = { onDoubleClick }
+        onSelectEvent = { onSelectEvent }
+        onView = { onViewChange }
+        view = { lastView }
+        components = {
+            {
+                event: CalendarEvent
+            }
+        }
+        /> <
+        CalendarModal / >
+        <
+        /div>
     )
 }
