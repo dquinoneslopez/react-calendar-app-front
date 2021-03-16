@@ -37,7 +37,6 @@ export const CalendarScreen = () => {
 
         // console.log(e)
         dispatch(eventSetActive(e));
-        dispatch(uiOpenModal());
 
     }
 
