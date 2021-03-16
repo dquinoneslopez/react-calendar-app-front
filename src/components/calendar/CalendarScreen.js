@@ -23,7 +23,6 @@ const localizer = momentLocalizer(moment) // or globalizeLocalizer
 export const CalendarScreen = () => {
 
     const dispatch = useDispatch();
-    //TODO: leer eventos del store
     const { events } = useSelector(state => state.calendar);
 
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
@@ -63,32 +62,31 @@ export const CalendarScreen = () => {
 
     }
 
-    return ( <
-        div className = "calendar-screen" >
-        <
-        Navbar / >
-        <
-        Calendar localizer = { localizer }
-        events = { events }
-        startAccessor = "start"
-        endAccessor = "end"
-        messages = { messages }
-        eventPropGetter = { eventStyleGetter }
-        onDoubleClickEvent = { onDoubleClick }
-        onSelectEvent = { onSelectEvent }
-        onView = { onViewChange }
-        view = { lastView }
-        components = {
-            {
-                event: CalendarEvent
-            }
-        }
-        /> <
-        AddNewFab / >
-        <
-        CalendarModal / >
+    return (
+        <div
+            className="calendar-screen"
+        >
+            <Navbar />
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                messages={messages}
+                eventPropGetter={eventStyleGetter}
+                onDoubleClickEvent={onDoubleClick}
+                onSelectEvent={onSelectEvent}
+                onView={onViewChange}
+                view={lastView}
+                components={
+                    {
+                        event: CalendarEvent
+                    }
+                }
+            />
+            <AddNewFab />
+            <CalendarModal />
 
-        <
-        /div>
+        </div>
     )
 }
