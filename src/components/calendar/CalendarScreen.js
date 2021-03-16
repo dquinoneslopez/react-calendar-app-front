@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import moment from 'moment';
 
@@ -20,21 +20,11 @@ import { AddNewFab } from '../ui/AddNewFab';
 moment.locale('es');
 const localizer = momentLocalizer(moment) // or globalizeLocalizer
 
-const events = [{
-    title: 'Cumpleaños de alguien',
-    start: moment().toDate(),
-    end: moment().add(2, 'hours').toDate(),
-    bgcolor: '#fafafa',
-    notes: 'Comprar pastel',
-    user: {
-        _id: '123',
-        name: 'Daniel'
-    }
-}];
-
 export const CalendarScreen = () => {
 
     const dispatch = useDispatch();
+    //TODO: leer eventos del store
+    const { events } = useSelector(state => state.calendar);
 
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
 
@@ -73,31 +63,32 @@ export const CalendarScreen = () => {
 
     }
 
-    return (
-        <div
-            className="calendar-screen"
-        >
-            <Navbar />
-            <Calendar
-                localizer={localizer}
-                events={events}
-                startAccessor="start"
-                endAccessor="end"
-                messages={messages}
-                eventPropGetter={eventStyleGetter}
-                onDoubleClickEvent={onDoubleClick}
-                onSelectEvent={onSelectEvent}
-                onView={onViewChange}
-                view={lastView}
-                components={
-                    {
-                        event: CalendarEvent
-                    }
-                }
-            />
-            <AddNewFab />
-            <CalendarModal />
+    return ( <
+        div className = "calendar-screen" >
+        <
+        Navbar / >
+        <
+        Calendar localizer = { localizer }
+        events = { events }
+        startAccessor = "start"
+        endAccessor = "end"
+        messages = { messages }
+        eventPropGetter = { eventStyleGetter }
+        onDoubleClickEvent = { onDoubleClick }
+        onSelectEvent = { onSelectEvent }
+        onView = { onViewChange }
+        view = { lastView }
+        components = {
+            {
+                event: CalendarEvent
+            }
+        }
+        /> <
+        AddNewFab / >
+        <
+        CalendarModal / >
 
-        </div>
+        <
+        /div>
     )
 }

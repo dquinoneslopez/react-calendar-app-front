@@ -47,7 +47,6 @@ export const CalendarModal = () => {
     }
 
     const closeModal = () => {
-        //TODO: cerrar modal
         dispatch(
             uiCloseModal()
         );
