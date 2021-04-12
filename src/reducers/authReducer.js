@@ -7,7 +7,7 @@ const initialState = {
 export const authReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case value:
+        case '':
 
             break;
 
