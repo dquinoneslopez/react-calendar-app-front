@@ -71,7 +71,6 @@ export const startChecking = () => {
                 })
             )
         } else {
-            // Swal.fire('Error', body.msg, 'error');
             dispatch(checkingFinished());
         }
 
@@ -80,4 +79,19 @@ export const startChecking = () => {
 
 const checkingFinished = () => ({
     type: types.authCheckingFinished
+});
+
+export const startLogout = () => {
+
+    return (dispatch) => {
+
+        localStorage.clear();
+        dispatch(logout());
+
+    }
+
+}
+
+const logout = () => ({
+    type: types.authLogout
 })
