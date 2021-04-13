@@ -9,7 +9,11 @@ import { customStyles } from '../../helpers/modal-center-style';
 import './modal.css';
 import './date-picker.css';
 import { uiCloseModal } from '../../actions/ui';
-import { eventStartAddNew, eventClearActive, eventUpdated } from '../../actions/event';
+import {
+    eventStartAddNew,
+    eventClearActive,
+    eventStartUpdated
+} from '../../actions/event';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -93,7 +97,7 @@ export const CalendarModal = () => {
         const momentEnd = moment(end);
 
         if (momentStart.isSameOrAfter(momentEnd)) {
-            return Swal.fire('Error', 'La fecha de fin no puede se mayor que la de inicio', 'error');
+            return Swal.fire('Error', 'End date cannot be higher than start date', 'error');
         }
 
         if (title.trim().length < 2) {
@@ -102,7 +106,7 @@ export const CalendarModal = () => {
 
         if (activeEvent) {
             dispatch(
-                eventUpdated(formValues)
+                eventStartUpdated(formValues)
             )
         } else {
             //TODO: Realizar guardado en bd
@@ -126,7 +130,7 @@ export const CalendarModal = () => {
         >
             <h1>
                 {
-                    (activeEvent) ? 'Editar Evento' : 'Nuevo Evento'
+                    (activeEvent) ? 'Edit Even' : 'New Event'
                 }
             </h1>
             <hr />

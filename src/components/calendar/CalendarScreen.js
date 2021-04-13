@@ -11,7 +11,11 @@ import { messages } from '../../helpers/calendar-messages-es';
 import { CalendarEvent } from './CalendarEvent';
 import { CalendarModal } from './CalendarModal';
 import { uiOpenModal } from '../../actions/ui';
-import { eventClearActive, eventSetActive, eventStartLoading } from '../../actions/event';
+import {
+    eventClearActive,
+    eventSetActive,
+    eventStartLoading
+} from '../../actions/event';
 import { AddNewFab } from '../ui/AddNewFab';
 import { DeleteEventFab } from '../ui/DeleteEventFab';
 
@@ -25,8 +29,8 @@ export const CalendarScreen = () => {
 
     const dispatch = useDispatch();
     const { events, activeEvent } = useSelector(state => state.calendar);
-
     const [lastView, setLastView] = useState(localStorage.getItem('lastView') || 'month');
+    const { uid } = useSelector(state => state.auth);
 
     useEffect(() => {
         dispatch(eventStartLoading());
@@ -57,7 +61,7 @@ export const CalendarScreen = () => {
 
         // console.log(event, start, end, isSelected);
         const style = {
-            backgroundColor: '#367CF7',
+            backgroundColor: (uid === event.user._id) ? '#367CF7' : '#465660',
             borderRadius: '0px',
             opacity: 0.8,
             display: 'block'

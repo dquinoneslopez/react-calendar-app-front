@@ -1,9 +1,10 @@
 import Swal from "sweetalert2";
 import { fetchWithToken } from "../helpers/fetch"
+import { prepareEvents } from "../helpers/prepare-events";
 import { types } from "../types/types"
 
 export const eventStartAddNew = (event) => {
-    return async (dispatch, getState) => {
+    return async(dispatch, getState) => {
 
         const { uid, name } = getState().auth;
 
@@ -21,7 +22,7 @@ export const eventStartAddNew = (event) => {
                     eventAddNew(event)
                 );
             } else {
-                Swal.fire('Error', 'Could not save the event', 'error');
+                Swal.fire('Error', body.msg, 'error');
             }
 
         } catch (error) {
@@ -44,7 +45,27 @@ export const eventClearActive = () => ({
     type: types.eventClearActive
 })
 
-export const eventUpdated = (event) => ({
+export const eventStartUpdated = (event) => {
+    return async(dispatch) => {
+        try {
+            const resp = await fetchWithToken(`events/${event.id}`, event, 'PUT');
+            const body = await resp.json();
+
+            if (body.ok) {
+                dispatch(
+                    eventUpdated(event)
+                );
+            } else {
+                Swal.fire('Error', body.msg, 'error');
+            }
+
+        } catch (error) {
+            Swal.fire('Error', error, 'error');
+        }
+    }
+}
+
+const eventUpdated = (event) => ({
     type: types.eventUpdated,
     payload: event
 })
@@ -54,13 +75,23 @@ export const eventDeleted = () => ({
 })
 
 export const eventStartLoading = () => {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const resp = await fetchWithToken('events');
             const body = await resp.json();
-            dispatch(eventLoaded(body.events));
-        } catch (error) {
 
+            const events = prepareEvents(body.events);
+
+            if (body.ok) {
+                dispatch(
+                    eventLoaded(events)
+                );
+            } else {
+                Swal.fire('Error', body.msg, 'error');
+            }
+
+        } catch (error) {
+            Swal.fire('Error', error, 'error');
         }
     }
 }
