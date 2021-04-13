@@ -10,6 +10,7 @@ export const types = {
     eventUpdated: '[event] Event Updated',
     eventDeleted: '[event] Event Deleted',
     eventLoaded: '[event] Event Loaded',
+    eventLogout: '[event] Event Logout',
 
     authCheckingFinished: '[auth] Checking login state finished',
     authStartLogin: '[auth] Start login',
