@@ -9,7 +9,7 @@ import { customStyles } from '../../helpers/modal-center-style';
 import './modal.css';
 import './date-picker.css';
 import { uiCloseModal } from '../../actions/ui';
-import { eventAddNew, eventClearActive, eventUpdated } from '../../actions/event';
+import { eventStartAddNew, eventClearActive, eventUpdated } from '../../actions/event';
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement('#root');
@@ -107,14 +107,7 @@ export const CalendarModal = () => {
         } else {
             //TODO: Realizar guardado en bd
             dispatch(
-                eventAddNew({
-                    ...formValues,
-                    id: new Date().getTime(),
-                    user: {
-                        _id: 123,
-                        name: 'Daniel'
-                    }
-                })
+                eventStartAddNew(formValues)
             );
         }
 

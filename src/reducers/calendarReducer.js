@@ -1,19 +1,20 @@
-import moment from "moment";
 import { types } from "../types/types";
 
+// {
+//     id: 'asldgkjasñlkfjdlaksjdf',
+//     title: 'Cumpleaños de alguien',
+//     start: moment().toDate(),
+//     end: moment().add(2, 'hours').toDate(),
+//     bgcolor: '#fafafa',
+//     notes: 'Comprar pastel',
+//     user: {
+//         _id: '123',
+//         name: 'Daniel'
+//     }
+// }
+
 const initialState = {
-    events: [{
-        id: new Date().getDate(),
-        title: 'Cumpleaños de alguien',
-        start: moment().toDate(),
-        end: moment().add(2, 'hours').toDate(),
-        bgcolor: '#fafafa',
-        notes: 'Comprar pastel',
-        user: {
-            _id: '123',
-            name: 'Daniel'
-        }
-    }],
+    events: [],
     activeEvent: null
 }
 
@@ -23,14 +24,14 @@ export const calendarReducer = (state = initialState, action) => {
         case types.eventSetActive:
             return {
                 ...state,
-                activeEvent: action.payLoad
+                activeEvent: action.payload
             }
         case types.eventAddNew:
             return {
                 ...state,
                 events: [
                     ...state.events,
-                    action.payLoad
+                    action.payload
                 ]
             }
         case types.eventClearActive:
@@ -42,7 +43,7 @@ export const calendarReducer = (state = initialState, action) => {
             return {
                 ...state,
                 events: state.events.map(
-                    e => (e.id === action.payLoad.id) ? action.payLoad : e
+                    e => (e.id === action.payload.id) ? action.payload : e
                 )
             }
         case types.eventDeleted:
@@ -52,6 +53,11 @@ export const calendarReducer = (state = initialState, action) => {
                     e => (e.id !== state.activeEvent.id)
                 ),
                 activeEvent: null
+            }
+        case types.eventLoaded:
+            return {
+                ...state,
+                events: [...action.payload]
             }
         default:
             return state;
