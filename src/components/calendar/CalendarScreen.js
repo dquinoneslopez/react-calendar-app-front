@@ -73,36 +73,36 @@ export const CalendarScreen = () => {
         )
     }
 
-    return ( <
-            div className = "calendar-screen" >
-            <
-            Navbar / >
-            <
-            Calendar localizer = { localizer }
-            events = { events }
-            startAccessor = "start"
-            endAccessor = "end"
-            messages = { messages }
-            eventPropGetter = { eventStyleGetter }
-            onDoubleClickEvent = { onDoubleClick }
-            onSelectEvent = { onSelectEvent }
-            onView = { onViewChange }
-            onSelectSlot = { onSelectSlot }
-            selectable = { true }
-            view = { lastView }
-            components = {
-                {
-                    event: CalendarEvent
+    return (
+        <div
+            className="calendar-screen"
+        >
+            <Navbar />
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor="start"
+                endAccessor="end"
+                messages={messages}
+                eventPropGetter={eventStyleGetter}
+                onDoubleClickEvent={onDoubleClick}
+                onSelectEvent={onSelectEvent}
+                onView={onViewChange}
+                onSelectSlot={onSelectSlot}
+                selectable={true}
+                view={lastView}
+                components={
+                    {
+                        event: CalendarEvent
+                    }
                 }
+            />
+            {
+                (activeEvent) && <DeleteEventFab />
             }
-            /> {
-            (activeEvent) && < DeleteEventFab / >
-        } <
-        AddNewFab / >
-        <
-        CalendarModal / >
+            <AddNewFab />
+            <CalendarModal />
 
-        <
-        /div>
-)
+        </div>
+    )
 }
